@@ -1,0 +1,10 @@
+<p>playlist works!</p>
+<div *ngFor="let track of trackList$ | async">
+  <p (click)="addToPlaylist(track.id)">{{ track.title }}</p>
+  <button (click)="playPreview(track.preview)">Play preview</button>
+</div>
+
+<label>
+  <input (input)="find($event.target.value)" />
+</label>
+<button (click)="getNext()">Get more (+5)</button>
