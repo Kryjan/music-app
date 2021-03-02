@@ -1,0 +1,37 @@
+<form (ngSubmit)="savePlaylist()" [formGroup]="form" class="save-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input
+      [errorStateMatcher]="matcher"
+      formControlName="email"
+      matInput
+      placeholder="Ex. pat@example.com"
+      type="email"
+    />
+    <mat-error
+      *ngIf="
+        form.get('email').hasError('email') &&
+        !form.get('email').hasError('required')
+      "
+    >
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="form.get('email').hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Playlist name</mat-label>
+    <input [errorStateMatcher]="matcher" formControlName="name" matInput />
+    <mat-error *ngIf="form.get('name').hasError('required')">
+      Playlist name is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="form.get('name').hasError('minlength')">
+      Playlist name is <strong>too short (min 3)</strong>
+    </mat-error>
+    <mat-error *ngIf="form.get('name').hasError('maxlength')">
+      Playlist name is <strong>too long (max 15)</strong>
+    </mat-error>
+  </mat-form-field>
+  <button type="submit">save</button>
+</form>

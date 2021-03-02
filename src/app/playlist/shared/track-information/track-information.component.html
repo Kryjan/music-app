@@ -1,0 +1,11 @@
+<div class="track-info">
+  <img alt="{{ track.artist.name }}" src="{{ track.album.cover_small }}" />
+  <div class="track-description">
+    <div class="title">{{ track.title }}</div>
+    <div class="artist">{{ track.artist.name }}</div>
+  </div>
+  <div (click)="playPausePreview(track.preview)" class="play-button">
+    <mat-icon *ngIf="!isPlaying">play_circle_outline</mat-icon>
+    <mat-icon *ngIf="isPlaying">pause_circle_outline</mat-icon>
+  </div>
+</div>

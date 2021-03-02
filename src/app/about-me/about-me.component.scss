@@ -1,0 +1,17 @@
+mat-card {
+  max-width: 500px;
+  margin: auto;
+
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+    }
+  }
+
+}

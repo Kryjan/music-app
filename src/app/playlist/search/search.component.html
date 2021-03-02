@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-title> Search:</mat-card-title>
+  <input (input)="find($event.target.value)" matInput title="search" />
+
+  <p>Results:</p>
+  <app-track-information
+    *ngFor="let track of trackList$ | async"
+    [track]="track"
+  >
+  </app-track-information>
+  <!--<p (click)="addToPlaylist(track.id)">{{ track.title }}</p>-->
+  <!--<button (click)="playPausePreview(track.preview)">Play/pause preview</button>-->
+  <button (click)="getNext()" color="primary" mat-button>Get more (+5)</button>
+</mat-card>

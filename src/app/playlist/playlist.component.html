@@ -1,10 +1,15 @@
-<p>playlist works!</p>
-<div *ngFor="let track of trackList$ | async">
-  <p (click)="addToPlaylist(track.id)">{{ track.title }}</p>
-  <button (click)="playPreview(track.preview)">Play preview</button>
-</div>
+<div class="playlist-container">
+  <mat-card class="my-tracks">
+    <app-track-information
+      *ngFor="let track of myTracks$ | async"
+      [track]="track"
+    ></app-track-information>
+  </mat-card>
 
-<label>
-  <input (input)="find($event.target.value)" />
-</label>
-<button (click)="getNext()">Get more (+5)</button>
+  <app-search></app-search>
+
+  <app-save-playlist-form
+    #savePlaylistForm
+    *ngIf="true"
+  ></app-save-playlist-form>
+</div>

@@ -1,0 +1,25 @@
+.track-info {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+
+  img {
+    border-radius: 50%;
+  }
+
+  .track-description {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: large;
+  }
+
+  .artist {
+    font-size: medium;
+  }
+
+  .play-button {
+    cursor: pointer;
+  }
+}

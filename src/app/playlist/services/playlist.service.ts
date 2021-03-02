@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DeezerApi, Track } from '../../model/playlist';
+import { DeezerApi, Playlist, Track } from '../../model/playlist';
 
 @Injectable({
   providedIn: 'root',
@@ -12,19 +12,23 @@ export class PlaylistService {
     'x-rapidapi-key': '2b8c48bfefmshdc5ae752139a51fp150905jsnd66c041066a9',
     'x-rapidapi-host': 'deezerdevs-deezer.p.rapidapi.com',
   };
-  trackList$: Observable<Track[]> = new Observable<Track[]>();
+  foundTracks$: Observable<Track[]> = new Observable<Track[]>();
+  myTracks$: Observable<Track[]> = new Observable<Track[]>();
+  myPlaylist$: Observable<Playlist> = new Observable<Playlist>();
+
   nextResults: string;
 
-  private _trackList$: BehaviorSubject<Track[]> = new BehaviorSubject<Track[]>(
-    []
-  );
-  private _playlist$: BehaviorSubject<Track[]> = new BehaviorSubject<Track[]>(
+  private _foundTracks$: BehaviorSubject<Track[]> = new BehaviorSubject<
+    Track[]
+  >([]);
+  private _myTracks$: BehaviorSubject<Track[]> = new BehaviorSubject<Track[]>(
     []
   );
 
   constructor(private http: HttpClient) {
-    this._playlist$.next(JSON.parse(localStorage.getItem('myPlaylist')) || []);
-    this.trackList$ = this._trackList$.asObservable();
+    this._myTracks$.next(JSON.parse(localStorage.getItem('myPlaylist')) || []);
+    this.foundTracks$ = this._foundTracks$.asObservable();
+    this.myTracks$ = this._myTracks$.asObservable();
   }
 
   getTrackList(query: string): void {
@@ -41,7 +45,7 @@ export class PlaylistService {
           if (newTrackList.length === 0) {
             this.getNextTracks();
           } else {
-            this._trackList$.next(newTrackList);
+            this._foundTracks$.next(newTrackList);
           }
         } else {
           console.error('Error fetching data', result.error);
@@ -51,7 +55,7 @@ export class PlaylistService {
 
   getNextTracks(): void {
     const params = new HttpParams({ fromString: this.nextResults });
-    const currentTrackList = this._trackList$.value;
+    const currentTrackList = this._foundTracks$.value;
     this.http
       .get<DeezerApi>(this.baseUrl, { headers: this.headers, params })
       .subscribe((result) => {
@@ -60,7 +64,7 @@ export class PlaylistService {
           if (newTrackList.length === 0) {
             this.getNextTracks();
           } else {
-            this._trackList$.next(currentTrackList.concat(newTrackList));
+            this._foundTracks$.next(currentTrackList.concat(newTrackList));
           }
         } else {
           console.error('Error fetching data', result.error);
@@ -69,22 +73,22 @@ export class PlaylistService {
   }
 
   addToMyPlaylist(trackId: number): void {
-    const newTrack = this._trackList$.value.find(
+    const newTrack = this._foundTracks$.value.find(
       (track) => track.id === trackId
     );
-    this._trackList$.next(
-      this._trackList$.value.filter((track) => track.id !== trackId)
+    this._foundTracks$.next(
+      this._foundTracks$.value.filter((track) => track.id !== trackId)
     );
-    this._playlist$.next(this._playlist$.value.concat(newTrack));
-    localStorage.setItem('myPlaylist', JSON.stringify(this._playlist$.value));
+    this._myTracks$.next(this._myTracks$.value.concat(newTrack));
+    localStorage.setItem('myPlaylist', JSON.stringify(this._myTracks$.value));
   }
 
   private _checkCurrentPlaylist(result: DeezerApi): Track[] {
     const newTrackList =
-      this._playlist$.value.length > 0
+      this._myTracks$.value.length > 0
         ? result.data.filter(
             (track) =>
-              !this._playlist$.value.find((myTrack) => myTrack.id === track.id)
+              !this._myTracks$.value.find((myTrack) => myTrack.id === track.id)
           )
         : result.data;
     this.nextResults = result.next.slice(result.next.indexOf('&'));

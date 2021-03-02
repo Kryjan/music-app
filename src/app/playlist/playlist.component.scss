@@ -1,0 +1,12 @@
+.playlist-container {
+  display: flex;
+  flex-direction: row;
+
+  .my-tracks {
+    flex-direction: column;
+  }
+
+  app-search {
+    margin-left: auto;
+  }
+}
