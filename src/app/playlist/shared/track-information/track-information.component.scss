@@ -1,7 +1,10 @@
 .track-info {
   display: flex;
+  padding: 10px;
   flex-direction: row;
   align-self: center;
+  align-items: center;
+  border-bottom: 1px solid gray;
 
   img {
     border-radius: 50%;
@@ -9,6 +12,7 @@
 
   .track-description {
     flex-direction: column;
+    margin-left: 10px;
   }
 
   .title {
@@ -19,7 +23,21 @@
     font-size: medium;
   }
 
-  .play-button {
-    cursor: pointer;
+  .icons-container {
+    display: inherit;
+    margin-left: auto;
+
+    &.hidden {
+      display: none;
+    }
+
+    .play-button {
+      cursor: pointer;
+    }
+
+    .remove-ico {
+      cursor: pointer;
+      margin-left: 5px;
+    }
   }
 }

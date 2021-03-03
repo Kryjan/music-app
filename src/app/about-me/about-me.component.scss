@@ -2,6 +2,10 @@ mat-card {
   max-width: 500px;
   margin: auto;
 
+  a {
+    color: #ffa726;
+  }
+
   mat-card-title {
     display: flex;
     align-items: center;
@@ -13,5 +17,4 @@ mat-card {
       margin-right: 20px;
     }
   }
-
 }

@@ -4,8 +4,13 @@
     <div class="title">{{ track.title }}</div>
     <div class="artist">{{ track.artist.name }}</div>
   </div>
-  <div (click)="playPausePreview(track.preview)" class="play-button">
-    <mat-icon *ngIf="!isPlaying">play_circle_outline</mat-icon>
-    <mat-icon *ngIf="isPlaying">pause_circle_outline</mat-icon>
+  <div [class.hidden]="isSearch" class="icons-container">
+    <div (click)="playPausePreview(track.preview)" class="play-button">
+      <mat-icon *ngIf="!isPlaying">play_circle_outline</mat-icon>
+      <mat-icon *ngIf="isPlaying">pause_circle_outline</mat-icon>
+    </div>
+    <mat-icon (click)="removeFromPlaylist()" class="remove-ico"
+      >highlight_off
+    </mat-icon>
   </div>
 </div>

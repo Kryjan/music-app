@@ -3,9 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToastrModule } from 'ngx-toastr';
 import { PlaylistComponent } from './playlist.component';
 import { SavePlaylistFormComponent } from './save-playlist-form/save-playlist-form.component';
 import { SearchComponent } from './search/search.component';
@@ -33,6 +37,10 @@ import { TrackInformationComponent } from './shared/track-information/track-info
     MatIconModule,
     MatCardModule,
     MatInputModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    ToastrModule.forRoot(),
+    NgScrollbarModule,
   ],
   providers: [PlaylistService],
   entryComponents: [PlaylistComponent],

@@ -1,11 +1,15 @@
-.title {
-  cursor: pointer;
-  margin-left: 50px;
-}
+.mat-primary {
+  height: 50px;
 
-.about-ico {
-  display: flex;
-  margin-left: auto;
-  cursor: pointer;
-  margin-right: 50px;
+  .title {
+    cursor: pointer;
+    margin-left: 50px;
+  }
+
+  .about-ico {
+    display: flex;
+    margin-left: auto;
+    cursor: pointer;
+    margin-right: 50px;
+  }
 }

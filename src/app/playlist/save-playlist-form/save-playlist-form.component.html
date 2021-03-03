@@ -1,16 +1,17 @@
+<mat-label class="mat-card-title">Save playlist</mat-label>
 <form (ngSubmit)="savePlaylist()" [formGroup]="form" class="save-form">
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="form-input">
     <mat-label>Email</mat-label>
     <input
       [errorStateMatcher]="matcher"
       formControlName="email"
       matInput
-      placeholder="Ex. pat@example.com"
+      placeholder="name@example.com"
       type="email"
     />
     <mat-error
       *ngIf="
-        form.get('email').hasError('email') &&
+        form.get('email').hasError('pattern') &&
         !form.get('email').hasError('required')
       "
     >
@@ -20,7 +21,7 @@
       Email is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="form-input">
     <mat-label>Playlist name</mat-label>
     <input [errorStateMatcher]="matcher" formControlName="name" matInput />
     <mat-error *ngIf="form.get('name').hasError('required')">
@@ -33,5 +34,11 @@
       Playlist name is <strong>too long (max 15)</strong>
     </mat-error>
   </mat-form-field>
-  <button type="submit">save</button>
+  <mat-progress-bar *ngIf="isSaving" mode="indeterminate"></mat-progress-bar>
+  <div class="form-buttons">
+    <button (click)="this.dialogRef.close()" mat-button type="reset">
+      CANCEL
+    </button>
+    <button mat-button type="submit">SAVE</button>
+  </div>
 </form>

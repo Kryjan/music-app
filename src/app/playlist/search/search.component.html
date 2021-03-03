@@ -1,14 +1,35 @@
-<mat-card>
-  <mat-card-title> Search:</mat-card-title>
-  <input (input)="find($event.target.value)" matInput title="search" />
+<ng-container *ngIf="trackList$ | async as tracks">
+  <mat-card class="search-container">
+    <mat-form-field class="example-form-field">
+      <mat-label>Search</mat-label>
+      <input (input)="find(query)" [(ngModel)]="query" matInput type="text" />
+    </mat-form-field>
 
-  <p>Results:</p>
-  <app-track-information
-    *ngFor="let track of trackList$ | async"
-    [track]="track"
-  >
-  </app-track-information>
-  <!--<p (click)="addToPlaylist(track.id)">{{ track.title }}</p>-->
-  <!--<button (click)="playPausePreview(track.preview)">Play/pause preview</button>-->
-  <button (click)="getNext()" color="primary" mat-button>Get more (+5)</button>
-</mat-card>
+    <app-track-information
+      (click)="addToPlaylist(track.id); $event.stopPropagation()"
+      *ngFor="let track of tracks"
+      [isSearch]="true"
+      [track]="track"
+    >
+    </app-track-information>
+
+    <div *ngIf="!tracks || tracks.length === 0" class="empty-message">
+      <div class="three-notes-icon">
+        <mat-icon>music_note</mat-icon>
+        <mat-icon>music_note</mat-icon>
+        <mat-icon>music_note</mat-icon>
+      </div>
+      <span>Type in your favorite artist or song</span>
+    </div>
+
+    <mat-progress-bar
+      *ngIf="isLoading$ | async"
+      mode="indeterminate"
+    ></mat-progress-bar>
+
+    <div (click)="getNext()" *ngIf="tracks.length > 0" class="more-button">
+      <span>MORE </span>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+  </mat-card>
+</ng-container>

@@ -7,23 +7,24 @@
 @include mat-core();
 
 // Define the default theme (same as the example above).
-$candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
-$candy-app-theme: mat-light-theme(
-  (
-    color: (
-      primary: $candy-app-primary,
-      accent: $candy-app-accent,
-    ),
-  )
-);
-
-// Include the default theme styles (color and default density)
-@include angular-material-theme($candy-app-theme);
+//$dark-primary: mat-palette($mat-orange, A400);
+//$dark-accent: mat-palette($mat-orange, A400);
+//$dark-warn: mat-palette($mat-deep-orange);
+//$music-app-theme: mat-light-theme(
+//  (
+//    color: (
+//      primary: $music-app-primary,
+//      accent: $music-app-accent,
+//    ),
+//  )
+//);
+//
+//// Include the default theme styles (color and default density)
+//@include angular-material-theme($music-app-theme);
 
 // Define an alternate dark theme.
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-primary: mat-palette($mat-orange, A400);
+$dark-accent: mat-palette($mat-orange, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme(
   (
@@ -38,6 +39,4 @@ $dark-theme: mat-dark-theme(
 // Include the dark color styles inside of a block with a CSS class. You can make this
 // CSS class whatever you want. In this example, any component inside of an element with
 // `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
-.unicorn-dark-theme {
-  @include angular-material-color($dark-theme);
-}
+@include angular-material-color($dark-theme);

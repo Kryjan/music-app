@@ -1,15 +1,29 @@
 <div class="playlist-container">
-  <mat-card class="my-tracks">
-    <app-track-information
-      *ngFor="let track of myTracks$ | async"
-      [track]="track"
-    ></app-track-information>
-  </mat-card>
+  <ng-container *ngIf="myTracks$ | async as tracks">
+    <mat-card class="my-tracks">
+      <mat-card-title>Your playlist</mat-card-title>
+      <app-track-information
+        *ngFor="let track of tracks"
+        [track]="track"
+      ></app-track-information>
+      <div *ngIf="!tracks || tracks.length === 0" class="empty-message">
+        <div class="three-notes-icon">
+          <mat-icon>music_note</mat-icon>
+          <mat-icon>music_note</mat-icon>
+          <mat-icon>music_note</mat-icon>
+        </div>
+        <span>Add your songs</span>
+      </div>
+    </mat-card>
+  </ng-container>
 
-  <app-search></app-search>
-
-  <app-save-playlist-form
-    #savePlaylistForm
-    *ngIf="true"
-  ></app-save-playlist-form>
+  <app-search class="search-container"></app-search>
+  <button
+    (click)="savePlaylist()"
+    class="save-playlist-button"
+    color="primary"
+    mat-raised-button
+  >
+    Save
+  </button>
 </div>

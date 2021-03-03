@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,6 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { PlaylistService } from '../services/playlist.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -27,7 +30,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './save-playlist-form.component.html',
   styleUrls: ['./save-playlist-form.component.scss'],
 })
-export class SavePlaylistFormComponent implements OnInit {
+export class SavePlaylistFormComponent {
+  isSaving = false;
   form = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -38,11 +42,21 @@ export class SavePlaylistFormComponent implements OnInit {
   });
   matcher = new MyErrorStateMatcher();
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(
+    public dialogRef: MatDialogRef<SavePlaylistFormComponent>,
+    private service: PlaylistService,
+    private toastr: ToastrService
+  ) {}
 
   savePlaylist(): void {
-    console.log(this.form.value);
+    if (this.form.valid) {
+      this.isSaving = true;
+      this.service.savePlaylist(this.form.value).then(() => {
+        this.dialogRef.close();
+        this.toastr.success('Successfully saved playlist', '', {
+          positionClass: 'toast-bottom-center',
+        });
+      });
+    }
   }
 }

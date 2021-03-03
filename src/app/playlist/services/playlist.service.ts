@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DeezerApi, Playlist, Track } from '../../model/playlist';
+import { DeezerApi, FormData, Playlist, Track } from '../../model/playlist';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class PlaylistService {
   foundTracks$: Observable<Track[]> = new Observable<Track[]>();
   myTracks$: Observable<Track[]> = new Observable<Track[]>();
   myPlaylist$: Observable<Playlist> = new Observable<Playlist>();
+  isLoading$: Observable<boolean> = new Observable<boolean>();
 
   nextResults: string;
 
@@ -24,14 +26,23 @@ export class PlaylistService {
   private _myTracks$: BehaviorSubject<Track[]> = new BehaviorSubject<Track[]>(
     []
   );
+  private _isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  private _myPlaylist$: BehaviorSubject<Playlist> = new BehaviorSubject<Playlist>(
+    null
+  );
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
     this._myTracks$.next(JSON.parse(localStorage.getItem('myPlaylist')) || []);
     this.foundTracks$ = this._foundTracks$.asObservable();
     this.myTracks$ = this._myTracks$.asObservable();
+    this.isLoading$ = this._isLoading$.asObservable();
+    this.myPlaylist$ = this._myPlaylist$.asObservable();
   }
 
   getTrackList(query: string): void {
+    this._isLoading$.next(true);
     const params = {
       q: query,
       limit: '5',
@@ -46,14 +57,16 @@ export class PlaylistService {
             this.getNextTracks();
           } else {
             this._foundTracks$.next(newTrackList);
+            this._isLoading$.next(false);
           }
         } else {
-          console.error('Error fetching data', result.error);
+          this.toastr.error(`Error fetching data: ${result.error.message}`);
         }
       });
   }
 
   getNextTracks(): void {
+    this._isLoading$.next(true);
     const params = new HttpParams({ fromString: this.nextResults });
     const currentTrackList = this._foundTracks$.value;
     this.http
@@ -65,9 +78,10 @@ export class PlaylistService {
             this.getNextTracks();
           } else {
             this._foundTracks$.next(currentTrackList.concat(newTrackList));
+            this._isLoading$.next(false);
           }
         } else {
-          console.error('Error fetching data', result.error);
+          this.toastr.error(`Error fetching data: ${result.error.message}`);
         }
       });
   }
@@ -80,6 +94,23 @@ export class PlaylistService {
       this._foundTracks$.value.filter((track) => track.id !== trackId)
     );
     this._myTracks$.next(this._myTracks$.value.concat(newTrack));
+    localStorage.setItem('myPlaylist', JSON.stringify(this._myTracks$.value));
+  }
+
+  savePlaylist(data: FormData): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          this._myPlaylist$.next({ ...data, playlist: this._myTracks$.value })
+        );
+      }, 3000);
+    });
+  }
+
+  removeFromPlaylist(trackId: number): void {
+    this._myTracks$.next(
+      this._myTracks$.value.filter((track) => track.id !== trackId)
+    );
     localStorage.setItem('myPlaylist', JSON.stringify(this._myTracks$.value));
   }
 

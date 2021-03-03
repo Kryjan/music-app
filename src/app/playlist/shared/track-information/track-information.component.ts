@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Track } from '../../../model/playlist';
+import { PlaylistService } from '../../services/playlist.service';
 
 @Component({
   selector: 'app-track-information',
@@ -8,12 +9,17 @@ import { Track } from '../../../model/playlist';
 })
 export class TrackInformationComponent implements OnInit {
   @Input() track: Track;
+  @Input() isSearch = false;
   audioPreview: HTMLAudioElement;
   isPlaying = false;
 
-  constructor() {}
+  constructor(private service: PlaylistService) {}
 
   ngOnInit(): void {}
+
+  removeFromPlaylist(): void {
+    this.service.removeFromPlaylist(this.track.id);
+  }
 
   playPausePreview(audioSrc: string): void {
     if (!this.audioPreview) {

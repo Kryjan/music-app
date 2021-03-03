@@ -1,6 +1,9 @@
-export interface Playlist {
+export interface FormData {
   name: string;
   email: string;
+}
+
+export interface Playlist extends FormData {
   playlist: Track[];
 }
 
