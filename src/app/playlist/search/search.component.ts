@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, filter, map } from 'rxjs/operators';
-import { Track } from '../../model/playlist';
+import { Track } from '../../shared/model/playlist';
 import { PlaylistService } from '../services/playlist.service';
 
 @Component({

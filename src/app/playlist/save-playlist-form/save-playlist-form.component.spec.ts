@@ -8,9 +8,8 @@ describe('SavePlaylistFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SavePlaylistFormComponent ]
-    })
-    .compileComponents();
+      declarations: [SavePlaylistFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

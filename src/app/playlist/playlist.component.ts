@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { PlaylistService } from './services/playlist.service';
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss'],
 })
-export class PlaylistComponent implements OnInit {
+export class PlaylistComponent {
   playlistSize$: Observable<number>;
   playlistVisible: boolean;
 
@@ -19,8 +19,6 @@ export class PlaylistComponent implements OnInit {
       map((tracks) => tracks.length)
     );
   }
-
-  ngOnInit(): void {}
 
   savePlaylist(): void {
     this.dialog.open(SavePlaylistFormComponent, {
@@ -31,9 +29,5 @@ export class PlaylistComponent implements OnInit {
 
   showPlaylist(): void {
     this.playlistVisible = !this.playlistVisible;
-    // this.dialog.open(MyTracklistComponent, {
-    //   maxWidth: '95%',
-    //   height: '85%',
-    // });
   }
 }

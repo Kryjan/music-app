@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Track } from '../../../model/playlist';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Track } from '../../../shared/model/playlist';
 import { PlaylistService } from '../../services/playlist.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { PlaylistService } from '../../services/playlist.service';
   templateUrl: './track-information.component.html',
   styleUrls: ['./track-information.component.scss'],
 })
-export class TrackInformationComponent implements OnInit {
+export class TrackInformationComponent {
   @Input() track: Track;
   @Input() isSearch = false;
   @Output() addSong: EventEmitter<number> = new EventEmitter<number>();
@@ -16,8 +16,6 @@ export class TrackInformationComponent implements OnInit {
   isPlaying = false;
 
   constructor(private service: PlaylistService) {}
-
-  ngOnInit(): void {}
 
   removeFromPlaylist(): void {
     this.service.removeFromPlaylist(this.track.id);

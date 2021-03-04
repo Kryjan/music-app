@@ -1,6 +1,18 @@
 <mat-toolbar class="mat-primary">
   <div [routerLink]="'/'" class="title">Deezer Music Application</div>
-  <mat-icon [routerLink]="'/about-me'" class="about-ico" matTooltip="About Me">
-    info
-  </mat-icon>
+  <div class="buttons">
+    <mat-icon>mode_night</mat-icon>
+    <mat-slide-toggle
+      (ngModelChange)="changeTheme()"
+      [(ngModel)]="isChecked"
+    ></mat-slide-toggle>
+    <mat-icon>light_mode</mat-icon>
+    <mat-icon
+      [routerLink]="'/about-me'"
+      class="about-ico"
+      matTooltip="About Me"
+    >
+      info
+    </mat-icon>
+  </div>
 </mat-toolbar>

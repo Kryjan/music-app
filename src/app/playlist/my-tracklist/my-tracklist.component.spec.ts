@@ -8,9 +8,8 @@ describe('MyTracklistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MyTracklistComponent ]
-    })
-    .compileComponents();
+      declarations: [MyTracklistComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
