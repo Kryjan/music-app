@@ -1,15 +1,23 @@
-<div class="track-info">
+<div (click)="addSong.emit(track.id)" class="track-info">
   <img alt="{{ track.artist.name }}" src="{{ track.album.cover_small }}" />
   <div class="track-description">
     <div class="title">{{ track.title }}</div>
     <div class="artist">{{ track.artist.name }}</div>
   </div>
-  <div [class.hidden]="isSearch" class="icons-container">
-    <div (click)="playPausePreview(track.preview)" class="play-button">
+  <div class="icons-container">
+    <div
+      (click)="
+        playPausePreview(track.preview); $event.stopImmediatePropagation()
+      "
+      class="play-button"
+    >
       <mat-icon *ngIf="!isPlaying">play_circle_outline</mat-icon>
       <mat-icon *ngIf="isPlaying">pause_circle_outline</mat-icon>
     </div>
-    <mat-icon (click)="removeFromPlaylist()" class="remove-ico"
+    <mat-icon
+      (click)="removeFromPlaylist()"
+      [class.hidden]="isSearch"
+      class="remove-ico"
       >highlight_off
     </mat-icon>
   </div>

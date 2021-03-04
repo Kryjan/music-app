@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Track } from '../../../model/playlist';
 import { PlaylistService } from '../../services/playlist.service';
 
@@ -10,6 +10,8 @@ import { PlaylistService } from '../../services/playlist.service';
 export class TrackInformationComponent implements OnInit {
   @Input() track: Track;
   @Input() isSearch = false;
+  @Output() addSong: EventEmitter<number> = new EventEmitter<number>();
+
   audioPreview: HTMLAudioElement;
   isPlaying = false;
 

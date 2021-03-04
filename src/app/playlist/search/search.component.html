@@ -15,7 +15,7 @@
       mode="indeterminate"
     ></mat-progress-bar>
     <app-track-information
-      (click)="addToPlaylist(track.id); $event.stopPropagation()"
+      (addSong)="addToPlaylist(track.id)"
       *ngFor="let track of tracks"
       [isSearch]="true"
       [track]="track"

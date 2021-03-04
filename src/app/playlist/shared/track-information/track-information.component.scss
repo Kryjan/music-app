@@ -27,10 +27,6 @@
     display: inherit;
     margin-left: auto;
 
-    &.hidden {
-      display: none;
-    }
-
     .play-button {
       cursor: pointer;
     }
@@ -38,6 +34,10 @@
     .remove-ico {
       cursor: pointer;
       margin-left: 5px;
+
+      &.hidden {
+        display: none;
+      }
     }
   }
 }
