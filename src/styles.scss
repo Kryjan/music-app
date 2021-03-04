@@ -8,4 +8,25 @@ body {
 body {
   margin: auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 50px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ffa726;
+    border-radius: 50px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #fb8c00;
+  }
 }

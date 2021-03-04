@@ -11,11 +11,12 @@
   </button>
   <button
     (click)="savePlaylist()"
+    *ngIf="playlistSize$ | async"
     class="save-playlist-button"
     color="primary"
     mat-raised-button
   >
     Save
-    <mat-icon> save_alt</mat-icon>
+    <mat-icon>save_alt</mat-icon>
   </button>
 </div>
