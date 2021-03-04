@@ -19,11 +19,20 @@
 
   <app-search class="search-container"></app-search>
   <button
+    (click)="showPlaylist()"
+    class="show-playlist-button"
+    color="primary"
+    mat-raised-button
+  >
+    Playlist ({{ (myTracks$ | async).length }})
+  </button>
+  <button
     (click)="savePlaylist()"
     class="save-playlist-button"
     color="primary"
     mat-raised-button
   >
     Save
+    <mat-icon> save_alt</mat-icon>
   </button>
 </div>

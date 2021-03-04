@@ -104,7 +104,7 @@ export class PlaylistService {
           this._myPlaylist$.next({ ...data, playlist: this._myTracks$.value })
         );
       }, 3000);
-    });
+    }).then(() => console.log('Saved playlist: ', this._myPlaylist$.value));
   }
 
   removeFromPlaylist(trackId: number): void {

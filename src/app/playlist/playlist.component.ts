@@ -25,4 +25,8 @@ export class PlaylistComponent implements OnInit {
       width: '500px',
     });
   }
+
+  showPlaylist(): void {
+    console.log('working here');
+  }
 }

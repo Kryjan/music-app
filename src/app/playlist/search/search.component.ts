@@ -2,12 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-} from 'rxjs/operators';
+import { debounceTime, filter, map } from 'rxjs/operators';
 import { Track } from '../../model/playlist';
 import { PlaylistService } from '../services/playlist.service';
 
@@ -33,8 +28,7 @@ export class SearchComponent implements OnInit {
     this.isLoading$ = this.service.isLoading$;
     this.searchText$ = this._searchText$.asObservable().pipe(
       filter((text) => text && text.length > 0),
-      debounceTime(1000),
-      distinctUntilChanged()
+      debounceTime(1000)
     );
   }
 
