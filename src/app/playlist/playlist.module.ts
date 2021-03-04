@@ -15,6 +15,7 @@ import { SavePlaylistFormComponent } from './save-playlist-form/save-playlist-fo
 import { SearchComponent } from './search/search.component';
 import { PlaylistService } from './services/playlist.service';
 import { TrackInformationComponent } from './shared/track-information/track-information.component';
+import { MyTracklistComponent } from './my-tracklist/my-tracklist.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TrackInformationComponent } from './shared/track-information/track-info
     SearchComponent,
     SavePlaylistFormComponent,
     TrackInformationComponent,
+    MyTracklistComponent,
   ],
   imports: [
     CommonModule,

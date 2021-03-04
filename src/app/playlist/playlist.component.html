@@ -1,30 +1,13 @@
-<div class="playlist-container">
-  <ng-container *ngIf="myTracks$ | async as tracks">
-    <mat-card class="my-tracks">
-      <mat-card-title>Your playlist</mat-card-title>
-      <app-track-information
-        *ngFor="let track of tracks"
-        [track]="track"
-      ></app-track-information>
-      <div *ngIf="!tracks || tracks.length === 0" class="empty-message">
-        <div class="three-notes-icon">
-          <mat-icon>music_note</mat-icon>
-          <mat-icon>music_note</mat-icon>
-          <mat-icon>music_note</mat-icon>
-        </div>
-        <span>Add your songs</span>
-      </div>
-    </mat-card>
-  </ng-container>
-
-  <app-search class="search-container"></app-search>
+<div [class.mobile-visible]="playlistVisible" class="playlist-container">
+  <app-my-tracklist (visible)="showPlaylist()"></app-my-tracklist>
+  <app-search></app-search>
   <button
     (click)="showPlaylist()"
     class="show-playlist-button"
     color="primary"
     mat-raised-button
   >
-    Playlist ({{ (myTracks$ | async).length }})
+    Playlist ({{ playlistSize$ | async }})
   </button>
   <button
     (click)="savePlaylist()"
